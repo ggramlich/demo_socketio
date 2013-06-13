@@ -1,13 +1,17 @@
 io = require('socket.io-client')
+ioserver = require '../lib/ioserver'
 
 describe "smoke test", ->
     it "should pass", ->
        expect(true).toBe true
 
 describe "Client", ->
-    beforeEach ->
-
-    afterEach ->
+    beforeEach (done) ->
+        ioserver.start()
+        done()
+    afterEach (done) ->
+        ioserver.stop()
+        done()
 
     it "should be able to connect", (done) ->
           client = io.connect('http://localhost:9000')
